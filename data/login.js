@@ -1,4 +1,4 @@
-
+const dataManager = require('../util/dataManager');
 /**
  * Operations on /login
  */
@@ -14,7 +14,15 @@ module.exports = {
      */
     post: {
         200: function (req, res, callback) {
+            const username = req.body.username;
+            const password = req.body.password;
 
+            const data = dataManager.get(username);
+            if(data.password == password) {
+                res.send(true);
+            } else {
+                res.send(false);
+            }
         }
     },
     /**

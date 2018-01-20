@@ -1,5 +1,4 @@
-'use strict';
-var Mockgen = require('./mockgen.js');
+const dataManager = require('../util/dataManager');
 /**
  * Operations on /register
  */
@@ -15,15 +14,21 @@ module.exports = {
      */
     post: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/register',
-                operation: 'post',
-                response: '200'
-            }, callback);
+            const username = req.body.username;
+            const password = req.body.password;
+            const name = req.body.name;
+            const email = req.body.email;
+            const phone = req.body.phone;
+            const aadharNo = req.body.aadharNo;
+
+            dataManager.set(username, {
+                username,
+                password,
+                name,
+                email,
+                phone,
+                aadharNo
+            });
         }
     },
     /**
@@ -36,15 +41,7 @@ module.exports = {
      */
     get: {
         200: function (req, res, callback) {
-            /**
-             * Using mock data generator module.
-             * Replace this by actual data for the api.
-             */
-            Mockgen().responses({
-                path: '/register',
-                operation: 'get',
-                response: '200'
-            }, callback);
+            
         }
     }
 };
